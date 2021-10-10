@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         let lives = parseInt(document.querySelector('.question').getAttribute('lives'));
         let totalLiver = document.querySelectorAll('.live').length;
         let canSelect = document.querySelector('.can-select');
-        var audio = new Audio('../mp3/chasyi-obratnogo-otscheta-medlennogo-vrascheniya-38140 (mp3cut.net).mp3');
+        var audio = new Audio('https://huntercront.github.io/quizup/mp3/chasyi-obratnogo-otscheta-medlennogo-vrascheniya-38140%20(mp3cut.net).mp3');
 
 
         function updateLives() {
