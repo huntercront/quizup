@@ -9,6 +9,9 @@
     --yellow: #F8B846;
     --white: #ffffff;
     --tr-standart: 200ms easy-in;
+    --dark: #3B374C;
+    --gray: #A1A1A1;
+    --green: #88E2CE;
 }
 
 *,
@@ -56,6 +59,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background: var(--main);
     color: var(--white);
+    position: relative;
+    min-height: 100vh;
 }
 
 body.loading * {
@@ -386,8 +391,8 @@ html {
 }
 
 .container {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin: 0 auto;
     width: 100%;
     max-width: 720px;
@@ -463,12 +468,6 @@ html.wf-active body {
     user-select: none;
 }
 
-.main {
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
-}
-
 .intro {
     min-height: inherit;
 }
@@ -481,7 +480,6 @@ html.wf-active body {
 .bg-c,
 .bg-l,
 .bg-r {
-    background-size: contain;
     background-repeat: no-repeat;
 }
 
@@ -505,25 +503,27 @@ html.wf-active body {
 }
 
 .bg-r {
-    max-width: 70rem;
-    max-height: 70rem;
+    max-width: 35rem;
+    max-height: 35rem;
     min-width: 20rem;
     min-height: 20rem;
     bottom: 0%;
     right: 0%;
-    transform: translate(50%, 50%);
-    width: 60vw;
-    height: 60vw;
+    width: 30vw;
+    height: 30vw;
+    background-size: 200% 200%;
+    background-position: left top;
 }
 
 .bg-c {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 767 1435'%3E%3Cpath fill='%23fff' d='M404.4 69c3.4-68.7-93.5-86.6-115-21.3L25.5 852a59 59 0 0 0 56 77.4h240a59 59 0 0 1 59 61.9l-18.1 366.1c-3.4 68.7 93.5 86.7 115 21.3l264-804.4a59 59 0 0 0-56-77.4h-240a59 59 0 0 1-58.9-61.9l18-366.1Z'/%3E%3C/svg%3E");
-    height: 120%;
+    height: 100%;
     width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-position: center center;
+    background-size: 120% 120%;
 }
 
 .bg-cb,
@@ -757,15 +757,15 @@ html.wf-active body {
 
 .user-icon {
     background: var(--white);
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 100%;
     margin-right: 0.5rem;
 }
 
 .user-icon span {
     color: var(--main);
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     line-height: 1;
 }
 
@@ -776,7 +776,8 @@ html.wf-active body {
 
 .user-name {
     margin-bottom: 0;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1;
 }
 
 .user-team {
@@ -788,17 +789,19 @@ html.wf-active body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 0.75rem 2rem;
+    padding: 0.6rem 2rem;
     z-index: 20;
+    background: var(--main);
+    border-bottom: 1px solid #8d76f2;
 }
 
-@media screen and (max-width:750px) {
+@media screen and (max-width:768px) {
     .header {
-        padding: 0.75rem 0rem
+        padding: 0.5rem 0rem
     }
     .header-content {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 10px;
+        padding-right: 10px;
         margin: 0 auto;
         width: 100%;
         max-width: 720px;
@@ -807,7 +810,7 @@ html.wf-active body {
 
 .header-logo {
     width: 100%;
-    max-width: 8rem;
+    max-width: 6rem;
     user-select: none;
 }
 
@@ -817,37 +820,101 @@ html.wf-active body {
     height: 1.75rem;
 }
 
+.icon-s {
+    flex: 0 0 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
 .pos-left {
     margin-right: 0.5rem;
 }
 
+.pos-right {
+    margin-left: 0.5rem;
+}
+
+.lives-icon {
+    margin-left: 0.5rem;
+    margin-right: 0.25rem;
+    margin-bottom: -0.15rem;
+}
+
 .question {
-    padding-top: 7rem;
+    padding-top: 4.5rem;
     padding-bottom: 3rem;
 }
 
-.hs-circle--bar {
-    fill: none;
-    stroke: #fff;
-    stroke-width: 3;
-    stroke-dasharray: 100 100;
-    stroke-linecap: round;
+.quiz-info-value,
+.quiz-info-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.quiz-info-value {
+    color: var(--dark);
+}
+
+.quiz-info-label {
+    color: var(--gray);
+    line-height: 1;
+}
+
+.question-inner {
+    display: flex;
+}
+
+.quiz-progress {
+    position: relative;
+    height: 0.3rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: var(--main-light);
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.progress-indicator,
+.next-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0rem;
+    background: var(--green);
     transition: 1000ms linear;
-    transition-property: stroke-dashoffset;
+    transition-property: background, width;
 }
 
-.hs-circle {
-    transform: rotate(-90deg)
+.next-indicator {
+    z-index: 5;
+    background: var(--main);
 }
 
-.hs-circle--background {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.45);
-    stroke-width: 3;
+.time-center.progress-indicator {
+    background: var(--yellow);
 }
 
-.time-counter {
-    font-size: 0.825rem;
+.time-ended.progress-indicator {
+    background: var(--red);
+}
+
+.time-end.progress-indicator {
+    background: var(--main-light);
+}
+
+.quiz-details {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: var(--white);
+    border-radius: 0.35rem;
+    z-index: 20;
+}
+
+.quiz-details-inner {
+    padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+    position: relative;
 }
 
 .will-end {
@@ -864,32 +931,6 @@ html.wf-active body {
     100% {
         opacity: 1;
     }
-}
-
-.live path {
-    transition: 300ms ease-in;
-    transition-property: fill;
-}
-
-.remove-life {
-    animation: bonce 300ms ease-in forwards;
-}
-
-@keyframes bonce {
-    0% {
-        transform: scale(1);
-    }
-    0% {
-        transform: scale(0.25);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.live.unlive path,
-.remove-life path {
-    fill: transparent;
 }
 
 .question-title {
@@ -967,10 +1008,9 @@ html.wf-active body {
 
 .unsver-icon {
     position: relative;
-    width: 2.5rem;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 0.25rem;
-    margin-right: 0.75rem;
+    margin-right: 0.5rem;
     position: relative;
     transition: var(--tr-standart);
     transition-property: background;
@@ -1037,4 +1077,78 @@ html.wf-active body {
 
 .ansvers {
     margin-bottom: 3rem;
+}
+
+.message {
+    position: absolute;
+    top: calc(100% + 1rem);
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    left: 0;
+    border-radius: 0.35rem;
+    z-index: -2;
+    transition: 300ms ease-in;
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity, visibility, top;
+}
+
+.message.visible {
+    top: calc(100% + 0.5rem);
+    visibility: visible;
+    opacity: 1;
+}
+
+.message-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.message.sucsess {
+    background: #48b29a;
+}
+
+.message.error {
+    background: #e4627a;
+}
+
+@media screen and (max-width:540px) {
+    .ansver {
+        padding: 0.75rem;
+    }
+    .question {
+        padding-top: 3.2rem;
+    }
+    .quiz-details {
+        border-radius: 0;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    .quiz-details-inner {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    html {
+        font-size: 15px;
+    }
+    .question-title {
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .question-img {
+        margin: 1rem 0;
+    }
+    .unsver-icon.icon-m,
+    .unsver-icon .icon-m {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex: 0 0 1.25rem;
+    }
+    .unsver-text {
+        margin-top: 0;
+    }
+    .ansvers {
+        margin-bottom: 2rem;
+    }
 }

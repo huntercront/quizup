@@ -25,15 +25,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
     })
 
     if (document.querySelector('.question')) {
-        let progresBar = document.querySelector('.hs-circle--bar');
-        let totalTime = parseInt(document.querySelector('.total-time').textContent);
+        let progresBar = document.querySelector('.progress-indicator');
+        let totalTime = parseInt(document.querySelector('.curent-time').getAttribute('data-max'));
         let curentTime = document.querySelector('.curent-time');
         let timeCounter = totalTime;
         let stage = parseInt(document.querySelector('.question').getAttribute('stage'));
         let lives = parseInt(document.querySelector('.question').getAttribute('lives'));
         let totalLiver = document.querySelectorAll('.live').length;
         let canSelect = document.querySelector('.can-select');
-        var audio = new Audio('https://huntercront.github.io/quizup/mp3/chasyi-obratnogo-otscheta-medlennogo-vrascheniya-38140%20(mp3cut.net).mp3');
+        let audio = new Audio('https://huntercront.github.io/quizup/mp3/chasyi-obratnogo-otscheta-medlennogo-vrascheniya-38140%20(mp3cut.net).mp3');
+        let toNextTime = parseInt(document.querySelector('.curent-time').getAttribute('to-next'));
+        let nextIndicator = document.querySelector('.next-indicator');
+        let timeText = document.querySelector('.time-descr');
+        let nextUrl = document.querySelector('.btn.size-xl').getAttribute('next-page')
+
 
 
         function updateLives() {
@@ -42,42 +47,82 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         }
 
-        function updateBar(value) {
-            let partUpdate = 80 / totalTime;
-            progresBar.style.strokeDashoffset = 100 - (partUpdate * (totalTime - value + 1));
+        function updateBar(value, total, barSelector) {
+            let partUpdate = 100 / total;
+            barSelector.style.width = partUpdate * (total - value + 1 / value) + '%';
         }
+
+
         let timerId = setInterval(function() {
             timeCounter--;
-            if (timeCounter == 5) {
-                curentTime.classList.add('will-end');
-                audio.play();
+
+            if (timeCounter <= totalTime / 2) {
+                progresBar.classList.add('time-center');
             }
-            updateBar(timeCounter);
+            if (timeCounter <= 5) {
+                curentTime.classList.add('will-end');
+                progresBar.classList.add('time-ended');
+                // audio.play();
+            }
+            updateBar(timeCounter, totalTime, progresBar);
             curentTime.textContent = timeCounter;
             if (timeCounter == 0) {
                 clearTimeout(timerId);
                 curentTime.classList.remove('will-end');
+                progresBar.classList.add('time-end');
                 audio.pause();
                 setTimeout(function() {
                     checkAnswer();
-                    updateLives();
+                    // updateLives();
                 }, 200);
 
             }
         }, 1000);
+
+
+        function showMessage(message) {
+            let sucsess = document.querySelector('.sucsess');
+            let error = document.querySelector('.error');
+            if (message) {
+                sucsess.classList.add('visible');
+            } else {
+                error.classList.add('visible');
+            }
+        };
+
+        function toNext() {
+            let nextCounter = toNextTime;
+            timeText.textContent = timeText.getAttribute('next-text')
+            let timerNext = setInterval(function() {
+                nextCounter--;
+                updateBar(nextCounter, toNextTime, nextIndicator);
+                curentTime.textContent = nextCounter;
+                if (nextCounter == 0) {
+                    clearTimeout(timerNext);
+                    document.location.href = nextUrl;
+                }
+            }, 1000);
+        }
+
 
         function checkAnswer() {
             canSelect.classList.remove('can-select');
             let ansverRight = document.querySelector('.question').getAttribute('key');
             if (document.querySelector('.ansver.selected')) {
                 if (('answer-' + ansverRight) == document.querySelector('.ansver.selected').id) {
-                    document.querySelector('.ansver.selected').classList.add('ansver-right')
+                    document.querySelector('.ansver.selected').classList.add('ansver-right');
+                    showMessage(true);
+                    toNext();
                 } else {
                     document.querySelector('.ansver.selected').classList.add('ansver-wrong');
                     document.getElementById('answer-' + ansverRight).classList.add('ansver-right');
+                    showMessage(false);
+                    toNext();
                 }
             } else {
-                document.getElementById('answer-' + ansverRight).classList.add('ansver-right')
+                document.getElementById('answer-' + ansverRight).classList.add('ansver-right');
+                showMessage(false);
+                toNext();
             }
         }
 
