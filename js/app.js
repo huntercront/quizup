@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         let toNextTime = parseInt(document.querySelector('.curent-time').getAttribute('to-next'));
         let nextIndicator = document.querySelector('.next-indicator');
         let timeText = document.querySelector('.time-descr');
-        let nextUrl = document.querySelector('.btn.size-xl').getAttribute('next-page')
+        let nextUrl = document.querySelector('.btn.size-xl').getAttribute('next-page');
+        let ansverBtn = document.querySelector('.btn.size-xl')
 
 
 
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (timeCounter <= 5) {
                 curentTime.classList.add('will-end');
                 progresBar.classList.add('time-ended');
-                // audio.play();
+                audio.play();
             }
             updateBar(timeCounter, totalTime, progresBar);
             curentTime.textContent = timeCounter;
@@ -112,18 +113,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 if (('answer-' + ansverRight) == document.querySelector('.ansver.selected').id) {
                     document.querySelector('.ansver.selected').classList.add('ansver-right');
                     showMessage(true);
-                    toNext();
+
                 } else {
                     document.querySelector('.ansver.selected').classList.add('ansver-wrong');
                     document.getElementById('answer-' + ansverRight).classList.add('ansver-right');
                     showMessage(false);
-                    toNext();
+
                 }
             } else {
                 document.getElementById('answer-' + ansverRight).classList.add('ansver-right');
                 showMessage(false);
-                toNext();
             }
+            toNext()
         }
 
 
@@ -134,9 +135,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     if (document.querySelector('.ansver.selected')) {
                         document.querySelector('.ansver.selected').classList.remove('selected')
                     }
-                    ansver.classList.add('selected')
+                    ansver.classList.add('selected');
+                    if (ansverBtn.disabled == true) {
+                        ansverBtn.disabled = false;
+                        ansverBtn.textContent = "Ответить"
+                    }
                 }
             })
+        })
+
+
+        function changeAnsverBtn(btn) {
+            btn.classList.add('to-next');
+            btn.textContent = 'Далее';
+        }
+
+        ansverBtn.addEventListener('click', function(e) {
+            if (this.classList.contains('to-next')) {
+                document.location.href = nextUrl;
+            } else {
+                if (this.disabled == false) {
+                    clearTimeout(timerId);
+                    checkAnswer();
+                    changeAnsverBtn(ansverBtn);
+                    curentTime.classList.remove('will-end');
+                    progresBar.classList.add('time-end');
+                }
+            }
         })
     }
 

@@ -12,6 +12,7 @@
     --dark: #3B374C;
     --gray: #A1A1A1;
     --green: #88E2CE;
+    --green-dark: #48b29a;
 }
 
 *,
@@ -563,6 +564,9 @@ html.wf-active body {
 
 .question {
     min-height: inherit;
+    padding-top: 4.5rem;
+    padding-bottom: 6rem;
+    position: relative;
 }
 
 .intro-inner {
@@ -594,9 +598,44 @@ html.wf-active body {
     color: var(--white);
 }
 
+.main-btn:disabled {
+    background: var(--main-light);
+    color: var(--main);
+}
+
+.main-btn.to-next {
+    background: var(--blue);
+}
+
+.main-btn.to-next:hover {
+    box-shadow: 0px 24px 32px rgba(116, 145, 246, 0.14), 0px 16px 24px rgba(116, 145, 246, 0.1), 0px 2px 6px rgba(116, 145, 246, 0.08), 0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+
+.main-btn:disabled:hover {
+    cursor: not-allowed;
+    transform: translate(0, 0rem);
+    box-shadow: none;
+    background: var(--main-light);
+}
+
 .size-l {
     max-width: 12rem;
     padding: 0.725rem 2rem;
+    position: relative;
+}
+
+.btn-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.btn-wrapper {
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    background: var(--white);
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
 }
 
 .size-xl,
@@ -840,11 +879,6 @@ html.wf-active body {
     margin-bottom: -0.15rem;
 }
 
-.question {
-    padding-top: 4.5rem;
-    padding-bottom: 3rem;
-}
-
 .quiz-info-value,
 .quiz-info-label {
     font-size: 0.9rem;
@@ -1076,7 +1110,7 @@ html.wf-active body {
 }
 
 .ansvers {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .message {
